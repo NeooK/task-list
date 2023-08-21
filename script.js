@@ -17,8 +17,18 @@ window.addEventListener('load', () => {
         });
     }
 });
+// Обробник натискання клавіші "Enter"
+taskInput.addEventListener('keydown', event => {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
 
 addButton.addEventListener('click', () => {
+    addTask();
+});
+
+function addTask() {
     const task = taskInput.value.trim();
 
     if (task === '') {
@@ -30,8 +40,7 @@ addButton.addEventListener('click', () => {
         // Зберігаємо задачі
         saveTasksToLocalStorage();
     }
-});
-
+}
 function generateTask(task) {
     const taskItem = `<li class="task-item">
                         <span class="task-text">${task}</span>
