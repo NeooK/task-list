@@ -30,37 +30,25 @@ addButton.addEventListener('click', () => {
         // Зберігаємо задачі
         saveTasksToLocalStorage();
     }
-});
-
-function generateTask(task) {
-    const taskItem = `<li class="task-item">
-                        <span class="task-text">${task}</span>
-                        <button class="delete-button js-task-delete">-</button>
-                    </li>`;
-    console.log('task', task)
-    taskList.innerHTML = taskList.innerHTML + taskItem;
 
     taskInput.value = '';
-}
-// Слідкуємо за кліком елементів, які будуть нові в цьому статичному елементі
-taskList.addEventListener('click', function (event) {
+});
 
-    // Відбираємо елемент, яки нам потрібен по кліку
-    const checkElDelete = event.target.classList.contains('js-task-delete');
+function generateTask(taskText) {
+    const taskItem = document.createElement('li');
+    taskItem.classList.add('task-item');
+    taskItem.innerHTML = `
+        <span class="task-text">${taskText}</span>
+        <button class="delete-button js-task-delete">-</button>
+    `;
 
-    // Слідкуємо тільки за кнопкою видалення
-    if (checkElDelete) {
-
-        // Отримання батьківського елемента (елемента завдання)
-        const taskItem = event.target.closest('.task-item');
-
-        // Видаляємо елемент
-        taskItem.remove();
-
-        // Зберігаємо задачі
+    // Налаштовуємо кнопку видалення для нової задачі
+    const deleteButton = taskItem.querySelector('.delete-button');
+    deleteButton.addEventListener('click', () => {
+        taskList.removeChild(taskItem);
         saveTasksToLocalStorage();
-    }
-})
+    });
+}
 
 function saveTasksToLocalStorage() {
     const tasks = Array.from(document.querySelectorAll('.task-text')).map(task => task.textContent);

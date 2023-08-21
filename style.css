@@ -35,6 +35,9 @@ li {
     border: 1px solid #ccc;
     border-radius: 4px;
     color: #000000;
+    font-size: 20px;
+    font-weight: 700;
+
   }
 
   .add-button {
